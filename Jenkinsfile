@@ -73,15 +73,17 @@ pipeline {
       }
     }
     stage('Push docker image'){
-       steps{
-          docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
+      steps{
+        script{
+        docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
 
             def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
 
             /* Push the container to the custom Registry */
             customImage.push()
           }
-       } 
+        }
+      }
     }
     stage('Deploy') {
         steps {
