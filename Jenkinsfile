@@ -72,7 +72,7 @@ pipeline {
         // }
       }
     }
-    state('Push docker image'){
+    stage('Push docker image'){
        docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
 
           def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
