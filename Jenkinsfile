@@ -10,7 +10,7 @@ pipeline {
         APP_NAME="devops-web-${ENVIRONMENT}"
         AZ_CR_NAME="atfxdevcr"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
-        IMAGE_TAG="${JOB_BASE_NAME}-$ENVIRONMENT-$BUILD_NUMBER"
+        IMAGE_TAG="${JOB_BASE_NAME}-$ENVIRONMENT-${env.BUILD_ID}"
   }
   stages {
     stage('Build') {
@@ -18,9 +18,17 @@ pipeline {
         branch 'uat'
       }
       steps {
+        echo "IMAGE_TAG is : $IMAGE_TAG "
+        echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
         sh 'npm install'
         sh 'npm run build'
-        echo "IMAGE_TAG is : $IMAGE_TAG "
+        docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
+
+          def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
+
+          /* Push the container to the custom Registry */
+          customImage.push()
+        }
         // sh "docker push $IMAGE_REPO_ENDPOINT:$IMAGE_TAG"
         // script{
         // 	defineVariables();
