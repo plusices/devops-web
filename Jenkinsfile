@@ -74,7 +74,7 @@ pipeline {
     }
     stage('Push docker image'){
       steps{
-        docker login 
+        // docker login 
         script{
           docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", 'credentials-id') {
             // def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
