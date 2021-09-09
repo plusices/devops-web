@@ -26,5 +26,6 @@ echo $mysecret'''
   }
   environment {
     test = 'test'
+    mytest = '123456'
   }
 }
