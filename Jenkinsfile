@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       when {
-        branch 'master'
+        branch 'uat'
       }
       steps {
         sh 'npm install'
