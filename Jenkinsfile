@@ -4,6 +4,9 @@ pipeline {
     stage('build') {
       parallel {
         stage('build') {
+          environment {
+            test = '121313'
+          }
           steps {
             sh 'echo $test'
           }
