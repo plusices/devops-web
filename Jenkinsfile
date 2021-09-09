@@ -22,13 +22,13 @@ pipeline {
         echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
         sh 'npm install'
         sh 'npm run build'
-        docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
+        // docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
 
-          def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
+        //   def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
 
-          /* Push the container to the custom Registry */
-          customImage.push()
-        }
+        //   /* Push the container to the custom Registry */
+        //   customImage.push()
+        // }
         // sh "docker push $IMAGE_REPO_ENDPOINT:$IMAGE_TAG"
         // script{
         // 	defineVariables();
