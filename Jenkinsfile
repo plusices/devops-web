@@ -77,6 +77,7 @@ pipeline {
         REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
       }
       steps{
+        sh "ls -lh"
         // docker login 
         sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
         sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR --password-stdin"
