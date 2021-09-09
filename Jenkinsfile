@@ -7,7 +7,6 @@ pipeline {
   }
   environment { 
         CC = 'clang'
-        APP_NAME='devops-web'
         APP_NAME="devops-web-${ENVIRONMENT}"
         AZ_CR_NAME="atfxdevcr"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
@@ -22,7 +21,7 @@ pipeline {
         sh 'npm install'
         sh 'npm run build'
         echo "IMAGE_TAG is : $IMAGE_TAG "
-        // sh 'docker push '
+        // sh "docker push $IMAGE_REPO_ENDPOINT:$IMAGE_TAG"
         // script{
         // 	defineVariables();
 
