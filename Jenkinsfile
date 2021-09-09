@@ -2,7 +2,7 @@ pipeline {
   agent {
         docker {
             image 'node:8.9.4'
-            args '-p 3000:3000 -p 5000:5000 -v $(which docker):/usr/bin/docker' 
+            args '-p 3000:3000 -p 5000:5000' 
         }
   }
   environment { 
