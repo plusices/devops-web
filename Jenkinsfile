@@ -5,7 +5,7 @@ pipeline {
             args '-p 3000:3000 -p 5000:5000' 
         }
   }
-  
+
   stages {
     stage('Build') {
       when {
@@ -74,6 +74,7 @@ pipeline {
     }
     stage('Integration tests') {
         steps {
+            echo "Starting integration tests"
             // script {
             //     try {
             //         if(env.runCypress=='true'){
@@ -96,6 +97,7 @@ pipeline {
     }
     stage('notify'){
         steps {
+            echo "Notify somebody"
             // script {
     			  //   notify(env.slackMsg,env.slackColor);
             // }
