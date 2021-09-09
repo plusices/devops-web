@@ -7,10 +7,10 @@ pipeline {
   }
   environment { 
         CC = 'clang'
-        APP_NAME="devops-web-${ENVIRONMENT}"
+        APP_NAME="devops-web-${BRANCH_NAME}"
         AZ_CR_NAME="atacrdev01"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
-        IMAGE_TAG="${JOB_BASE_NAME}-$ENVIRONMENT-${env.BUILD_ID}"
+        IMAGE_TAG="${JOB_BASE_NAME}-${env.BUILD_ID}"
   }
   stages {
     stage('Build') {
@@ -71,6 +71,15 @@ pipeline {
         //     }
         // }
       }
+    }
+    state('Push docker image'){
+       docker.withRegistry($IMAGE_REPO_ENDPOINT, 'credentials-id') {
+
+          def customImage = docker.build("$IMAGE_REPO_ENDPOINT:$IMAGE_TAG")
+
+          /* Push the container to the custom Registry */
+          customImage.push()
+        }
     }
     stage('Deploy') {
         steps {
