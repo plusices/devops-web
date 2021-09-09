@@ -5,7 +5,7 @@ pipeline {
             args '-p 3000:3000 -p 5000:5000' 
         }
   }
-  
+
   environment { 
         CC = 'clang'
         APP_NAME="devops-web-${BRANCH_NAME}"
@@ -81,7 +81,7 @@ pipeline {
         sh "ls -lh"
         // docker login 
         sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
-        sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR --password-stdin"
+        sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
         sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
         // script{
         //   docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", 'credentials-id') {
