@@ -5,7 +5,14 @@ pipeline {
             args '-p 3000:3000 -p 5000:5000' 
         }
   }
-
+  environment { 
+        CC = 'clang'
+        APP_NAME='devops-web'
+        APP_NAME="devops-web-${ENVIRONMENT}"
+        AZ_CR_NAME="atfxdevcr"
+        IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
+        IMAGE_TAG="${JOB_BASE_NAME}-$ENVIRONMENT-$BUILD_NUMBER"
+  }
   stages {
     stage('Build') {
       when {
@@ -14,6 +21,7 @@ pipeline {
       steps {
         sh 'npm install'
         sh 'npm run build'
+        echo "IMAGE_TAG is : $IMAGE_TAG "
         // sh 'docker push '
         // script{
         // 	defineVariables();
