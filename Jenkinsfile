@@ -73,15 +73,21 @@ pipeline {
       }
     }
     stage('Push docker image'){
+      environment {
+        REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
+      }
       steps{
         // docker login 
-        script{
-          docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", 'credentials-id') {
-            // def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
-            // /* Push the container to the custom Registry */
-            // customImage.push()
-          }
-        }
+        sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
+        sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR --password-stdin"
+        sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
+        // script{
+        //   docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", 'credentials-id') {
+        //     // def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
+        //     // /* Push the container to the custom Registry */
+        //     // customImage.push()
+        //   }
+        // }
       }
     }
     stage('Deploy') {
