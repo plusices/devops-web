@@ -8,7 +8,7 @@ pipeline {
   environment { 
         CC = 'clang'
         APP_NAME="devops-web-${ENVIRONMENT}"
-        AZ_CR_NAME="atfxdevcr"
+        AZ_CR_NAME="atacrdev01"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
         IMAGE_TAG="${JOB_BASE_NAME}-$ENVIRONMENT-${env.BUILD_ID}"
   }
