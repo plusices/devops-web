@@ -18,6 +18,9 @@ pipeline {
       // when {
       //   branch '*/uat'
       // }
+      when { 
+        expression { params.ENVIRONMENT == 'uat' }
+      }
       steps {
         echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
