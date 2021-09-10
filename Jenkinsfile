@@ -8,7 +8,7 @@ pipeline {
 
   environment { 
         CC = 'clang'
-        BRANCH_NAME = "${sh(script:'git log -n 1 --pretty=format:'%h'', returnStdout: true).trim()}"
+        BRANCH_NAME = "${sh(script:'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()}"
         APP_NAME="devops-web-${BRANCH_NAME}"
         AZ_CR_NAME="atacrdev01"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
@@ -20,7 +20,7 @@ pipeline {
       //   branch '*/uat'
       // }
       steps {
-        sh "git log -n 1 --pretty=format:'%h'"
+        sh "git rev-parse --abbrev-ref HEAD"
         echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
         echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
