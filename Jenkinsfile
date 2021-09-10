@@ -15,9 +15,9 @@ pipeline {
   }
   stages {
     stage('Build') {
-      when {
-        branch '*/uat'
-      }
+      // when {
+      //   branch '*/uat'
+      // }
       steps {
         echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
