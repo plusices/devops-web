@@ -2,7 +2,7 @@ pipeline {
   agent {
         docker {
             image 'node:8.9.4'
-            args '-p 3000:3000 -p 5000:5000 --privileged -v /usr/bin/docker:/usr/bin/docker' 
+            args '-p 3000:3000 -p 5000:5000' 
         }
   }
 
