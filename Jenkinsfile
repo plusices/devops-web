@@ -2,7 +2,7 @@ pipeline {
   agent {
         docker {
             image 'node:8.9.4'
-            args '-p 3000:3000 -p 5000:5000 --privileged -v /usr/bin/docker:/usr/bin/docker' 
+            args '-p 3000:3000 -p 5000:5000' 
         }
   }
 
@@ -85,8 +85,8 @@ pipeline {
       }
       steps{
         sh "ls -lh"
-        sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
         sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
+        sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
         sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
         // script{
         //   docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${params.ENVIRONMENT}") {
