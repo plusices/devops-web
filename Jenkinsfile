@@ -84,7 +84,7 @@ pipeline {
         REGISTRY_CREDS = credentials("registry_creds_${params.ENVIRONMENT}")
       }
       steps{
-        env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+        sh 'env'
         sh "ls -lh"
         sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
         // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
