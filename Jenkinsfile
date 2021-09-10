@@ -94,7 +94,7 @@ pipeline {
     // }
     stage('Deploy') {
         steps {
-            echo "Deploying $BRANCH_NAME branch"
+            echo "Deploying ${params.ENVIRONMENT} branch"
             // script {
             // 	try{
 	          //       echo "Deploying $BRANCH_NAME branch"
