@@ -73,24 +73,24 @@ pipeline {
         // }
       }
     }
-    stage('Push docker image'){
-      // environment {
-      //   REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
-      // }
-      steps{
-        // sh "ls -lh"
-        // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
-        // sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
-        // sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
-        script{
-          docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${BRANCH_NAME}") {
-            def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
-            /* Push the container to the custom Registry */
-            customImage.push()
-          }
-        }
-      }
-    }
+    // stage('Push docker image'){
+    //   // environment {
+    //   //   REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
+    //   // }
+    //   steps{
+    //     // sh "ls -lh"
+    //     // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
+    //     // sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
+    //     // sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
+    //     script{
+    //       docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${BRANCH_NAME}") {
+    //         def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
+    //         /* Push the container to the custom Registry */
+    //         customImage.push()
+    //       }
+    //     }
+    //   }
+    // }
     stage('Deploy') {
         steps {
             echo "Deploying $BRANCH_NAME branch"
@@ -138,10 +138,10 @@ pipeline {
         }
     }
   }
-  post {
-    always {
-      sh "docker logout"
-    }
-  }
+  // post {
+  //   always {
+  //     sh "docker logout"
+  //   }
+  // }
 }
 
