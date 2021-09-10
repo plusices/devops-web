@@ -144,10 +144,10 @@ pipeline {
         }
     }
   }
-  post {
-    always {
-      sh "docker logout $IMAGE_REPO_ENDPOINT"
-    }
-  }
+  // post {
+  //   always {
+  //     sh "docker logout $IMAGE_REPO_ENDPOINT"
+  //   }
+  // }
 }
 
