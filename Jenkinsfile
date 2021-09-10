@@ -21,6 +21,8 @@ pipeline {
       steps {
         echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
+        echo "MYSQL_HOST is : ${param.MYSQL_HOST}"
+        echo "MYSQL_PASSWD is : ${param.MYSQL_PASSWD}"
         echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
         sh 'npm install'
         sh 'npm run build'
@@ -74,24 +76,24 @@ pipeline {
         // }
       }
     }
-    // stage('Push docker image'){
-    //   // environment {
-    //   //   REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
-    //   // }
-    //   steps{
-    //     // sh "ls -lh"
-    //     // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
-    //     // sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
-    //     // sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
-    //     script{
-    //       docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${BRANCH_NAME}") {
-    //         def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
-    //         /* Push the container to the custom Registry */
-    //         customImage.push()
-    //       }
-    //     }
-    //   }
-    // }
+    stage('Push docker image'){
+      // environment {
+      //   REGISTRY_CREDS = credentials("registry_creds_${BRANCH_NAME}")
+      // }
+      steps{
+        // sh "ls -lh"
+        // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
+        // sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
+        // sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
+        script{
+          docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${BRANCH_NAME}") {
+            def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
+            /* Push the container to the custom Registry */
+            customImage.push()
+          }
+        }
+      }
+    }
     stage('Deploy') {
         steps {
             echo "Deploying ${params.ENVIRONMENT} branch"
