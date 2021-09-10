@@ -16,9 +16,10 @@ pipeline {
   stages {
     stage('Build') {
       when {
-        branch 'uat'
+        branch '*/uat'
       }
       steps {
+        echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
         echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
         sh 'npm install'
