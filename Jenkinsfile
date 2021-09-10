@@ -21,8 +21,8 @@ pipeline {
       steps {
         echo "APP_NAME is : $APP_NAME "
         echo "IMAGE_TAG is : $IMAGE_TAG "
-        echo "MYSQL_HOST is : ${param.MYSQL_HOST}"
-        echo "MYSQL_PASSWD is : ${param.MYSQL_PASSWD}"
+        echo "MYSQL_HOST is : ${params.MYSQL_HOST}"
+        echo "MYSQL_PASSWD is : ${params.MYSQL_PASSWD}"
         echo "IMAGE_REPO_ENDPOINT is : $IMAGE_REPO_ENDPOINT"
         sh 'npm install'
         sh 'npm run build'
