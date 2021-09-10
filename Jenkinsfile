@@ -8,6 +8,7 @@ pipeline {
 
   environment { 
         CC = 'clang'
+        BRANCH_NAME = "${sh(script:'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()}"
         APP_NAME="devops-web-${BRANCH_NAME}"
         AZ_CR_NAME="atacrdev01"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
