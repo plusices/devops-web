@@ -87,8 +87,8 @@ pipeline {
         sh 'env'
         sh "ls -lh"
         sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
-        // sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
-        // sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
+        sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
+        sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
         // script{
         //   docker.withRegistry("https://$IMAGE_REPO_ENDPOINT", "registry_creds_${params.ENVIRONMENT}") {
         //     def customImage = docker.build("$APP_NAME:$IMAGE_TAG")
