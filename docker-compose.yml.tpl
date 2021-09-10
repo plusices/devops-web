@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   devops-web:
-    image: $IMAGE_REPO:$IMAGE_TAG
+    image: $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG
     ports:
       - "$PORT:$PORT"
     environment:

@@ -11,7 +11,7 @@ pipeline {
         APP_NAME="devops-web-${params.ENVIRONMENT}"
         AZ_CR_NAME="atacrdev01"
         IMAGE_REPO_ENDPOINT="${AZ_CR_NAME}.azurecr.io"
-        IMAGE_TAG="${APP_NAME}-build-${env.BUILD_ID}"
+        IMAGE_TAG="${params.ENVIRONMENT}-build-${env.BUILD_ID}"
   }
   stages {
     stage('Build') {
