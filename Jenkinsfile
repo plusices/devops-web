@@ -1,7 +1,7 @@
 pipeline {
   agent {
         docker {
-            image 'node:8.9.4'
+            image 'atlassian/default-image:2'
             args '-p 3000:3000 -p 5000:5000' 
         }
   }
@@ -84,8 +84,7 @@ pipeline {
         REGISTRY_CREDS = credentials("registry_creds_${params.ENVIRONMENT}")
       }
       steps{
-        sh 'export'
-        sh "ls -lh"
+        sh "envsubst <./docker-compose.yml.tpl >./docker-compose.yml"
         sh "echo $REGISTRY_CREDS_PSW | docker login -u $REGISTRY_CREDS_USR $IMAGE_REPO_ENDPOINT --password-stdin"
         sh "docker build -t $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG ."
         sh "docker push $IMAGE_REPO_ENDPOINT/$APP_NAME:$IMAGE_TAG"
